@@ -1,0 +1,16 @@
+{
+  "account": {
+    "Email": "Email",
+    "HidePassword": "Hide password",
+    "LearnMore": "Learn More",
+    "Legal": "By logging in you accept the <a href='https://docs.arkbox.co/docs/terms-and-conditions' target='_blank'><u>terms and conditions</u></a> of ARKBOX® and authorize ARKBOX® to process your personal data in accordance with the <a href='https://docs.arkbox.co/docs/private-policy'target='_blank'><u>data processing policies</u>.</a>",
+    "Login": "Login",
+    "Logout": "Logout",
+    "Password": "Password",
+    "ConfirmPassword": "Confirm password",
+    "Name": "Name",
+    "LastName": "Last name",
+    "NewPassword": "New password",
+    "PasswordDontMatch": "Passwords don't match"
+  }
+}

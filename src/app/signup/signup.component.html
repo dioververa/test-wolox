@@ -1,0 +1,75 @@
+<div class="container login-page" [@routerTransition]>
+  <div class="row1">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+      <div class="form-content">
+        <mat-form-field class="ark-form-field ark-input-full-width">
+          <mat-label class="ark-mat-label">{{'account.Name' | translate}}</mat-label>
+          <input matInput formControlName="firstName" type="text" required>
+          <mat-error *ngIf="signupForm.get('firstName').hasError('required')">{{'error.Required' |
+            translate}}
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('firstName').hasError('maxlength')">
+            {{'error.MaxName' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="ark-form-field ark-input-full-width">
+          <mat-label class="ark-mat-label">{{'account.LastName' | translate}}</mat-label>
+          <input matInput formControlName="lastName" type="text" required>
+          <mat-error *ngIf="signupForm.get('lastName').hasError('required')">{{'error.Required' |
+            translate}}
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('lastName').hasError('maxlength')">
+            {{'error.MaxLastNameAccountManagement' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="ark-form-field ark-input-full-width ">
+          <mat-label class="ark-mat-label">{{'account.Email' | translate}}</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="signupForm.get('email').hasError('pattern')">{{'error.InvalidEmail' |
+            translate}}
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('email').hasError('maxlength')">
+            {{'error.MaxEmailAccountManagement' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="ark-form-field ark-input-full-width">
+          <mat-label class="ark-mat-label">{{'account.NewPassword' | translate}}</mat-label>
+          <input matInput [type]="hideNewPassword ? 'password' : 'text'" formControlName="newPassword"
+            placeholder="{{'account.NewPassword' | translate}}" required>
+          <a mat-icon-button matSuffix (click)="hideNewPassword = !hideNewPassword"
+            attr.aria-label="{{'account.HidePassword' | translate}}" [attr.aria-pressed]="hideNewPassword">
+            <span *ngIf="hideNewPassword; then templateVisibilityOffIcon else templateVisibilityIcon"></span>
+          </a>
+          <mat-error *ngIf="signupForm.get('newPassword').hasError('required')">
+            {{'error.Required' | translate}}
+          </mat-error>
+          <mat-error *ngIf="signupForm.get('newPassword').hasError('minlength')">
+            {{'error.Minlength' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="ark-form-field ark-input-full-width">
+          <mat-label class="ark-mat-label">{{'account.ConfirmPassword' | translate}}</mat-label>
+          <input matInput type="password" formControlName="confirmPassword"
+            placeholder="{{'account.ConfirmPassword' | translate}}" [errorStateMatcher]="matcher" required>
+          <mat-error *ngIf="signupForm.hasError('notSame')">
+            {{'account.PasswordDontMatch' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="signupForm.get('confirmPassword').hasError('required') && !passwordForm.hasError('notSame')">
+            {{'error.Required' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
+      &nbsp;
+      <a type="submit" class="btn rounded-btn" (click)="onSubmit()">Register</a>
+    </form>
+  </div>
+</div>
+
+<ng-template #templateVisibilityOffIcon>
+  <i class="fas fa-eye-slash"></i>
+</ng-template>
+<ng-template #templateVisibilityIcon>
+  <i class="fas fa-eye"></i>
+</ng-template>

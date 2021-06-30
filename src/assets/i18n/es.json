@@ -1,0 +1,16 @@
+{
+  "account": {
+    "Email": "Correo electrónico",
+    "EnterYourEmail": "Ingrese su correo electrónico para identificar sus cuentas.",
+    "HidePassword": "Ocultar contraseña",
+    "LearnMore": "Saber más",
+    "Login": "Iniciar sesión",
+    "Logout": "Cerrar sesión",
+    "Password": "Contraseña",
+    "ConfirmPassword": "Confirmar contraseña",
+    "LastName": "Apellidos",
+    "Name": "Nombre",
+    "PasswordDontMatch": "Las contraseñas no coinciden",
+    "PhoneNumber": "Número de teléfono"
+  }
+}
