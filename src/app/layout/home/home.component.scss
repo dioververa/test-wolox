@@ -1,0 +1,113 @@
+.container {
+  scroll-padding-top: 70px;
+
+  .section-top {
+    background-image: url("../../../assets/Backgrounds/Bg_Header.png");
+
+    .section-top__title {
+      font-family: $font-monserrat;
+      span {
+        color: $color-primary;
+      }
+    }
+  
+    .section-top__image {
+      background-image: url("../../../assets/Img-Hero/Ic_ilustra_Hero.png");
+    }
+  }
+
+  .section-about-us {
+    .section-about-us__woloxers {
+      width: 60%;
+      background-image: url("../../../assets/img_woloxer.png");
+
+      .section-about-us__text-woloxers {
+        font-family: $font-monserrat;
+        font-size: large;
+        color: $color-primary;
+        span {
+          color: $color-secondary;
+        }
+      }
+    }
+
+    .section-about-us__text-about {
+      width: auto;
+      color: $color-text-black-1;
+      span {
+        &:nth-last-child(0) {
+          color: $color-secondary;
+        }
+        &:nth-last-child(1) {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  .section-benefits {
+    .section-benefits__wrapper-title {
+      padding: 20px;
+      p {
+        margin: auto;
+        color: $color-text-black-1;
+      }
+    }
+
+    .section-benefits__row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+
+      .section-benefits__box {
+
+        .section-benefits__box-icon {
+          &:nth-child(odd) {
+            color: $color-secondary;
+          }
+          &:nth-child(even) {
+            color: $color-primary;
+          }
+        }
+
+        p {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+
+  .section-bottom {
+    background-image: url("../../../assets/Backgrounds/Bg_Header.png");
+
+    .section-bottom__wrapper-tex {
+      padding: 10px;
+      h3 {
+        margin: auto;
+        color: $color-text-black-1;
+        span {
+          color: $color-secondary;
+        }
+      }
+      p {
+        margin: auto;
+        color: $color-text-black-1;
+      }
+    }
+    .section-bottom__btn {
+      padding: 5px 10px;
+      border-radius: 30%;
+      background-color: $color-secondary;
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      }
+    }
+  }
+}

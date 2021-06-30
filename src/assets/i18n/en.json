@@ -12,5 +12,22 @@
     "LastName": "Last name",
     "NewPassword": "New password",
     "PasswordDontMatch": "Passwords don't match"
+  },
+  "general": {
+    "HomeTitle1": "welcome to your",
+    "HomeTitle2": "technical interview",
+    "HomeTitle3": "at",
+    "FollowUs": "Follow us",
+    "AboutUs1": "we work to",
+    "AboutUs2": "turn",
+    "AboutUs3": "ideas",
+    "AboutUs4": "into products",
+    "Benefits": "Among the benefits we offer are",
+    "FlexibleHours": "Flexible Hours",
+    "HomeOffice": "Home Office",
+    "Workshops": "Workshops",
+    "DrinkSnacks": "DrinkSnacks",
+    "RemoteWork": "Remote Work",
+    "CuttingEdgeTechnologies": "Cutting-Edge Technologies"
   }
 }
