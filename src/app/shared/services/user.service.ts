@@ -20,12 +20,12 @@ export class UserService {
     @Inject(APP_CONFIG) private configMain: AppConfig
   ) {
     this.urlBase = this.configMain.apiEndpoint;
-    if (this.validateDateExpToken()) this.loggedIn.next(true);
+    if (this.validateTokenExist()) this.loggedIn.next(true);
   }
 
   login(email: string, password: string) {
     return this.http
-      .post<{ token: string; user: any; nameUser: string }>(
+      .post<{ token: string}>(
         `${this.urlBase}/login`,
         { email: email, password: password }
       )
@@ -34,7 +34,7 @@ export class UserService {
         map(
           resp => {
             if (resp && resp.token) {
-              this.setUserLocalStorage(resp);
+              this.setUserLocalStorage(resp.token, {email: email});
             }
             return resp;
           },
@@ -46,41 +46,18 @@ export class UserService {
   }
 
   getNameUser() {
-    return JSON.parse(localStorage.getItem("nameUser") || '{}');
-  }
-
-  getRoleUser() {
-    return JSON.parse(localStorage.getItem("role") || '{}');
+    return JSON.parse((localStorage.getItem("user") || '{}')).name || '';
   }
 
   logout() {
     localStorage.removeItem("currentUser");
-    localStorage.removeItem("nameUser");
     localStorage.removeItem("auth_token");
-    localStorage.removeItem("role");
     this.loggedIn.next(false);
     this.router.navigate(["/login"]);
   }
 
-  validateDateExpToken(): boolean {
-    const user = this.getUserDetails();
-    if (user) {
-      return user.exp > Date.now() / 1000;
-    } else {
-      return false;
-    }
-  }
-
-  getUserDetails() {
-    const token = localStorage.getItem("auth_token");
-    let payload;
-    if (token) {
-      payload = token.split(".")[1];
-      payload = window.atob(payload);
-      return JSON.parse(payload);
-    } else {
-      return null;
-    }
+  validateTokenExist() {
+    return localStorage.getItem("auth_token");
   }
 
   get isLoggedIn() {
@@ -105,9 +82,8 @@ export class UserService {
         take(1),
         map(
           resp => {
-            //console.log('UserService create resp: ', resp);
             if (resp && resp.token) {
-              this.setUserLocalStorage(resp);
+              this.setUserLocalStorage(resp.token, user);
             }
             return resp;
           },
@@ -118,11 +94,9 @@ export class UserService {
       );
   }
 
-  setUserLocalStorage(resp) {
-    localStorage.setItem("currentUser", JSON.stringify(resp.user));
-    localStorage.setItem("nameUser", JSON.stringify(resp.nameUser));
-    localStorage.setItem("auth_token", resp.token);
-    localStorage.setItem("role", JSON.stringify(resp.role));
+  setUserLocalStorage(token, user) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem("auth_token", token);
     this.loggedIn.next(true);
   }
 }

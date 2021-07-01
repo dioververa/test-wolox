@@ -23,6 +23,7 @@ $app-theme: mat-dark-theme(
 @include mat-slider-theme($app-theme);
 @include mat-tooltip-theme($app-theme);
 @include mat-snack-bar-theme($app-theme);
+@include angular-material-theme($app-theme); 
 
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
 

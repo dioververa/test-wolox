@@ -23,15 +23,24 @@
       <span>{{'general.Signup' | translate}}</span>
     </a>
 
-    <button mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
+    <button mat-icon-button [matMenuTriggerFor]="toolbarLanguajeMenu" style="margin-left: auto;">
       <fa-icon [icon]="faLanguage"></fa-icon>
     </button>
-    <mat-menu #toolbarUserMenu="matMenu">
+    <mat-menu #toolbarLanguajeMenu="matMenu">
       <button mat-menu-item (click)="onChangeLanguaje('en')">
         <span>{{'general.English' | translate}}</span>
       </button>
       <button mat-menu-item (click)="onChangeLanguaje('es')">
         <span>{{'general.Spanish' | translate}}</span>
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button *ngIf="(isLoggedIn$ | async) === true" [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
+      <fa-icon [icon]="faUserCircle"></fa-icon>
+    </button>
+    <mat-menu #toolbarUserMenu="matMenu">
+      <button mat-menu-item (click)="onLoggedout()">
+        <span>{{'general.LogOut' | translate}}</span>
       </button>
     </mat-menu>
 

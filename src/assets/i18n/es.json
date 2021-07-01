@@ -15,14 +15,14 @@
   },
   "general": {
     "Homepage": "Homepage",
-    "Benefits": "Benefits",
+    "Benefits": "Beneficios",
     "Signup": "Signup",
     "LogOut": "LogOut",
-    "English": "English",
-    "Spanish": "Spanish",
-    "HomeTitle1": "welcome to your",
-    "HomeTitle2": "technical interview",
-    "HomeTitle3": "at",
+    "English": "Ingles",
+    "Spanish": "Español",
+    "HomeTitle1": "Bienvenido a su",
+    "HomeTitle2": "entrevista tecnica",
+    "HomeTitle3": "en",
     "FollowUs": "Follow us",
     "AboutUs1": "we work to",
     "AboutUs2": "turn",
@@ -34,6 +34,8 @@
     "Workshops": "Workshops",
     "DrinkSnacks": "DrinkSnacks",
     "RemoteWork": "Remote Work",
-    "CuttingEdgeTechnologies": "Cutting-Edge Technologies"
+    "CuttingEdgeTechnologies": "Cutting-Edge Technologies",
+    "SelectCountry": "Select Country",
+    "SelectProvince": "Select SelectProvince"
   }
 }

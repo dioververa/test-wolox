@@ -6,11 +6,28 @@ import { UserService } from '../shared/services/user.service';
 import {
   faEyeSlash, faEye
 } from "@fortawesome/free-solid-svg-icons";
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { map, mapTo, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  animations: [
+    trigger('routerTransition', [
+      state('void', style({})),
+      state('*', style({})),
+      transition(':enter', [
+        style({ transform: 'translateY(100%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateY(0%)' }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateY(0%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateY(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class SignupComponent implements OnInit {
 
@@ -46,6 +63,7 @@ export class SignupComponent implements OnInit {
       provinces: ['']
     }
   ];
+  provinces$: Observable<Array<string>>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -64,10 +82,13 @@ export class SignupComponent implements OnInit {
       country: ['', [Validators.required]],
       province: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(this.reEmail), Validators.maxLength(50)]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.rePhone)]],
-      newPassword: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(12), Validators.pattern(this.rePhone)]],
+      newPassword: ['', [Validators.required, Validators.minLength(5)]],
       confirmPassword: ['', Validators.required],
     }, { validator: this.checkPasswords });
+
+    this.provinces$ = this.signupForm.get('country').valueChanges
+    .pipe(map(() => this.getProvinces()));
   }
 
   checkPasswords(group: FormGroup) {
@@ -78,10 +99,14 @@ export class SignupComponent implements OnInit {
   }
 
   getProvinces(){
-    return this.countrys.find(item => item.name === this.signupForm.get('country').value).provinces;
+    return (this.countrys.find(item => item.name === this.signupForm.get('country').value) || {} as any)?.provinces;
   }
 
   onSubmit() {
+    console.log(this.signupForm.invalid)
+    console.log(this.signupForm)
+    if (this.signupForm.invalid) return;
+
     const user = {
       "name": this.signupForm.get('firstName').value,
       "last_name": this.signupForm.get('lastName').value,
