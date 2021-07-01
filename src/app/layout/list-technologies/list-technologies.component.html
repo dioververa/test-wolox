@@ -1,1 +1,63 @@
-<p>list-technologies works!</p>
+<div class="container">
+  <div class="section-list">
+    <div class="list-toolbar-top">
+      <div class="spacer"></div>
+      <div class="wrapper-filters">
+        <mat-form-field class="example-form-field" appearance="fill">
+          <mat-label>{{'general.SearchByName' | translate}}</mat-label>
+          <input matInput type="text" [formControl]="criteria" autocomplete="off">
+          <button *ngIf="criteria.value" matSuffix mat-icon-button aria-label="Clear" (click)="onCriteriaClear()">
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{'general.SelectType' | translate}}</mat-label>
+          <mat-select [formControl]="techTypeSelected">
+            <mat-option value="option" *ngFor="let option of techsType">{{option}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="list-toolbar-bottom">
+      <div class="list-favorites" *ngIf="favorites.length > 0">
+        <p>{{'general.Favorites' | translate}}: <span>favorites.length</span></p>
+      </div>
+      <div >
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <span>{{'general.orderBy' | translate}}</span>
+          <fa-icon [icon]="faArrowAltCircleDown"></fa-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let option of ordersBy" (click)="OnOrderBy(option.key)">{{ option.name }}>
+          </button>
+        </mat-menu>        
+      </div>
+    </div>
+    <div class="list-techs">
+      <div class="box-tech" *ngFor="let tech of techs">
+        <div class="wrapper-box-tech">
+          <div class="row-text-box-tech">
+            <h3>
+              {{tech.tech}} - <span>{{tech.type}}</span>
+            </h3>
+            <div>{{'general.Year' | translate}}: <span>{{tech.year}}</span></div>
+            <div>{{'general.Author' | translate}}: <span>{{tech.author}}</span></div>
+            <div>{{'general.License' | translate}}: <span>{{tech.license}}</span></div>
+          </div>
+          <div class="row-icon-box-tech">
+            <img class="box-tech-icon" [src]="tech.logo">
+          </div>
+        </div>
+        <div class="wrapper-box-favorite">
+          <a class="favorite-icon" (click)="saveFavorite(tech.name)">
+            <fa-icon [icon]="faHeart" *ngIf="tech.isFavorite"></fa-icon>
+            <fa-icon [icon]="faHeartbeat" *ngIf="!tech.isFavorite"></fa-icon>
+          </a>
+          <div class="text-author">
+            <span>{{tech.language}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

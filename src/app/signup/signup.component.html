@@ -22,6 +22,18 @@
             {{'error.MaxLastNameAccountManagement' | translate}}
           </mat-error>
         </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{'general.SelectType' | translate}}</mat-label>
+          <mat-select formControlName="country">
+            <mat-option value="option.name" *ngFor="let option of countrys">{{option.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>{{'general.SelectType' | translate}}</mat-label>
+          <mat-select formControlName="province">
+            <mat-option value="option" *ngFor="let option of getProvinces()">{{option}}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field class="ark-form-field ark-input-full-width ">
           <mat-label class="ark-mat-label">{{'account.Email' | translate}}</mat-label>
           <input matInput formControlName="email">
@@ -55,14 +67,12 @@
             {{'account.PasswordDontMatch' | translate}}
           </mat-error>
           <mat-error
-            *ngIf="signupForm.get('confirmPassword').hasError('required') && !passwordForm.hasError('notSame')">
+            *ngIf="signupForm.get('confirmPassword').hasError('required') && !signupForm.hasError('notSame')">
             {{'error.Required' | translate}}
           </mat-error>
         </mat-form-field>
       </div>
-      <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
-      &nbsp;
-      <a type="submit" class="btn rounded-btn" (click)="onSubmit()">Register</a>
+      <a type="submit" class="btn rounded-btn" (click)="onSubmit()">{{'error.Signup' | translate}}</a>
     </form>
   </div>
 </div>

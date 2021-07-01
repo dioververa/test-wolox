@@ -1,3 +1,13 @@
+@import "~src/styles";
+//Fonts
+$monserrat: "Montserrat", sans-serif;
+$font-monserrat: $monserrat;
+
+//Colors
+$color-primary: #2ba130;
+$color-secondary: #4a90e2;
+$color-text-black-1: #4a4a4a;
+
 .container {
   scroll-padding-top: 70px;
 

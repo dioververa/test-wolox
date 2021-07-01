@@ -16,6 +16,31 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   loading = false;
   error: string;
+  hideNewPassword = true;
+  matcher = new ConfirmPasswordErrorStateMatcher();
+  
+  countrys = [ 
+    {
+      name: 'Argentina',
+      provinces: [ 'Buenos Aires', 'Córdoba', 'Santa Fe', 'Mendoza' , 'Chaco']
+    },
+    {
+      name: 'Chile',
+      provinces: [ 'Bolívar', 'Boyacá', 'Caldas', 'Cauca', 'Magdalena']
+    },
+    {
+      name: 'Colombia',
+      provinces: ['']
+    },
+    {
+      name: 'México',
+      provinces: ['']
+    },
+    {
+      name: 'Perú',
+      provinces: ['']
+    }
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,6 +56,8 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.maxLength(50)]],
       lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      country: ['', [Validators.required]],
+      province: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(this.reEmail), Validators.maxLength(50)]],
       phoneNumber: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(this.rePhone)]],
       newPassword: ['', [Validators.required]],
@@ -45,16 +72,27 @@ export class SignupComponent implements OnInit {
     return newPassword === confirmPassword ? null : { notSame: true };
   }
 
+  getProvinces(){
+    return this.countrys.find(item => item.name === this.signupForm.get('country').value).provinces;
+  }
+
   onSubmit() {
-    this.userService.create(this.signupForm.value)
-      .subscribe(
-        data => {
-          this.router.navigate(['/']);
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+    const user = {
+      "name": this.signupForm.get('firstName').value,
+      "last_name": this.signupForm.get('lastName').value,
+      "country": this.signupForm.get('country').value,
+      "province": this.signupForm.get('province').value,
+      "mail": this.signupForm.get('email').value,
+      "phone": this.signupForm.get('phoneNumber').value,
+      "password": this.signupForm.get('newPassword').value
+    }
+    this.userService.create(user)
+    .subscribe(() => {
+        this.router.navigate(['/']);
+      }, error => {
+        this.error = error;
+        this.loading = false;
+      });
   }
 
 }

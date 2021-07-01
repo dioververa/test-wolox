@@ -2,7 +2,7 @@
   <div class="content-toolbar">
 
     <span routerLink="/" class="branding br-desktop">
-      <img alt="logo design-quantum" src="../../../../assets/icons/wolox.svg" />
+      <img alt="logo design-quantum" src="../../../../assets/logo_full_color.svg" />
     </span>
 
     <a class="icon-menu-movil" (click)="openedMenuResposive = !openedMenuResposive">
@@ -19,11 +19,11 @@
       <span>{{'account.Benefits ' | translate}}</span>
     </a>
 
-    <a class="item-option sign-in-button sign-in" *ngIf="loggedIn$ | async" (click)="signup()">
+    <a class="item-option sign-in-button sign-in" *ngIf="isLoggedIn$ | async" (click)="signup()">
       <span>{{'account.Signup' | translate}}</span>
     </a>
 
-    <button *ngIf="loggedIn$ | async" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
+    <button *ngIf="isLoggedIn$ | async" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
       <fa-icon [icon]="faUserCircle">{{profile$ | async}}</fa-icon>
     </button>
     <mat-menu #toolbarUserMenu="matMenu">
@@ -40,8 +40,8 @@
   <div class="options-menu-responsive" [ngStyle]="{'display': openedMenuResposive == true ? 'flex':'none'}">
     <a class="item-m-r" [routerLink]="['']" fragment="top">{{'account.Homepage' | translate}}</a>
     <a class="item-m-r" [routerLink]="['']" fragment="benefits">{{'account.Benefits' | translate}}</a>
-    <a class="item-m-r" *ngIf="!(loggedIn$ | async)" (click)="signup()">{{'account.Signup' | translate}}</a>
-    <div *ngIf="loggedIn$ | async">
+    <a class="item-m-r" *ngIf="!(isLoggedIn$ | async)" (click)="signup()">{{'account.Signup' | translate}}</a>
+    <div *ngIf="isLoggedIn$ | async">
       <a class="item-m-r" (click)="onLoggedout()">{{'account.LogOut' | translate}}</a>
     </div>
   </div>
