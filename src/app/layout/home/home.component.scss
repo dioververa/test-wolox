@@ -17,7 +17,6 @@ $color-text-black-1: #4a4a4a;
 .container {
   scroll-padding-top: 70px;
   overflow: auto;
-  margin-top: 80px;
 
   .section-top {
     background-image: url("../../../assets/Backgrounds/Bg_Header.png");
@@ -46,9 +45,10 @@ $color-text-black-1: #4a4a4a;
   .section-about-us {
     height: 300px;
     display: flex;
+    background: #f0f0f0;
     
     .section-about-us__woloxers {
-      width: 60%;
+      width: 55%;
       height: 100%;
       @extend .flex-center-hv;
       flex-flow: column;
@@ -87,13 +87,15 @@ $color-text-black-1: #4a4a4a;
       flex-grow: 1;
 
       .section-about-us__text-about {
-        width: 70%;
+        width: 50%;
+        text-align: center;
         color: $color-text-black-1;
+
         span {
-          &:nth-last-child(0) {
+          &:nth-child(1) {
             color: $color-secondary;
           }
-          &:nth-last-child(1) {
+          &:nth-child(2) {
             color: $color-primary;
           }
         }

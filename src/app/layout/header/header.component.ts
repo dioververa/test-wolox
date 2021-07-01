@@ -4,7 +4,7 @@ import {
 import { Router } from "@angular/router";
 import {
   faBars,
-  faPlus, faPowerOff, faUserCircle
+  faPlus, faPowerOff, faUserCircle, faLanguage,
 } from "@fortawesome/free-solid-svg-icons";
 import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faPowerOff = faPowerOff;
   faBars = faBars;
   faPlus = faPlus;
+  faLanguage = faLanguage;
 
   profile: any = {};
   openedMenuResposive = false;

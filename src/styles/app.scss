@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Import material theming functions
+@import '~@angular/material/theming';
+
+@include mat-core();
+// Define a theme.
+$primary: mat-palette($mat-pink, 700, 500, 900);
+$accent:  mat-palette($mat-blue-grey, A200, A100, A400);
+
+$app-theme: mat-dark-theme(
+    $primary,
+    $accent
+);
+
+// Include the theme styles for only specified components.
+@include mat-core-theme($app-theme);
+@include mat-button-theme($app-theme);
+@include mat-dialog-theme($app-theme);
+@include mat-input-theme($app-theme);
+@include mat-menu-theme($app-theme);
+@include mat-progress-spinner-theme($app-theme);
+@include mat-slider-theme($app-theme);
+@include mat-tooltip-theme($app-theme);
+@include mat-snack-bar-theme($app-theme);
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap");
+
+//Fonts
+$monserrat: "Montserrat", sans-serif;
+$font-monserrat: $monserrat;
+
+//Colors
+$color-primary: #2ba130;
+$color-secondary: #4a90e2;
+$color-text-black-1: #4a4a4a;

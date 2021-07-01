@@ -1,3 +1,10 @@
+//Colors
+$color-primary: #2ba130;
+$color-secondary: #4a90e2;
+$color-text-black-1: #4a4a4a;
+
+$padding-sides-toolbar: 10px;
+
 .flex-center-hv {
   display: flex;
   justify-content: center;
@@ -20,13 +27,13 @@ $height-cb: 54px;
 
 .toolbar {
   position: fixed;
-  top: $height-cb;
-  width: 100%;
+  width: calc(100% - 2*#{$padding-sides-toolbar});
   z-index: 1000;
   color: #fff;
   transition: all 0.4s ease-in-out;
   display: inline-flex;
   flex-wrap: wrap;
+  padding: 0 $padding-sides-toolbar;
 
   .content-toolbar {
     width: 100%;
@@ -48,20 +55,38 @@ $height-cb: 54px;
     cursor: pointer;
     height: 100%;
     align-items: center;
+    width: 100px;
 
     img {
-      height: 85%;
+      height: 100%;
+      width: 100%;
     }
   }
 
   .item-option {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    text-decoration: none;
+    margin: 0 10px;
+    color: black;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    }
   }
 
   .sign-in-button {
     line-height: 35px;
     margin-right: 10px;
+    color: $color-secondary;
+    border-radius: 20px;
+    padding: 2px 20px;
+    border: $color-secondary solid 1px;
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    }
   }
 
   .spacer {
@@ -105,8 +130,4 @@ $height-cb: 54px;
   .icon-menu-movil {
     display: none;
   }
-}
-
-.sign-in {
-  background: #ff6550;
 }

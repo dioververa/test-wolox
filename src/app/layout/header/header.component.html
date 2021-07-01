@@ -16,15 +16,15 @@
     </a>
 
     <a class="item-option" [routerLink]="['']" fragment="benefits">
-      <span>{{'general.Benefits ' | translate}}</span>
+      <span>{{'general.Benefits' | translate}}</span>
     </a>
 
-    <a class="item-option sign-in-button sign-in" *ngIf="isLoggedIn$ | async" (click)="signup()">
+    <a class="item-option sign-in-button sign-in" *ngIf="!(isLoggedIn$ | async)" (click)="signup()">
       <span>{{'general.Signup' | translate}}</span>
     </a>
 
-    <button *ngIf="isLoggedIn$ | async" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
-      <fa-icon [icon]="faUserCircle">{{profile$ | async}}</fa-icon>
+    <button mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
+      <fa-icon [icon]="faLanguage"></fa-icon>
     </button>
     <mat-menu #toolbarUserMenu="matMenu">
       <button mat-menu-item (click)="onChangeLanguaje('en')">

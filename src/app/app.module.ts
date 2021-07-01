@@ -14,11 +14,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppConfigModule } from './app-config.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 import { AuthInterceptor } from './shared/services/interceptor.service';
 import { UserService } from './shared/services/user.service';
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, `./assets/i18n/`, '.json');
+  return new TranslateHttpLoader(http, `/assets/i18n/`, '.json');
 }
 
 @NgModule({
@@ -49,6 +50,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
   ],
   providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

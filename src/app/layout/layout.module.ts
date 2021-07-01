@@ -28,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    TranslateModule.forRoot()
+    TranslateModule
   ]
 })
 export class LayoutModule { }

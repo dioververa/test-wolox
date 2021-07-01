@@ -19,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     HomeRoutingModule,
+    TranslateModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
@@ -27,8 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule,
-    TranslateModule.forRoot()
+    MatInputModule
   ]
 })
 export class HomeModule { }

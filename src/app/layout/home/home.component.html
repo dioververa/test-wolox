@@ -2,7 +2,7 @@
   <section #top class="section-top">
     <div class="section-top__row-title">
       <h1 class="section-top__title">
-        {{'general.HomeTitle1' | translate}}<strong> {{'general.HomeTitle2' | translate}}</strong> en <span>Wolox</span>
+        {{'general.HomeTitle1' | translate}}<strong> {{'general.HomeTitle2' | translate}}</strong> {{'general.HomeTitle3' | translate}} <span>Wolox</span>
       </h1>
     </div>
     <div class="section-top__image"></div>
@@ -22,16 +22,17 @@
       <a class="section-about-us__btn-follows">{{'general.FollowUs' | translate}}</a>
     </div>
     <div class="section-about-us__row-text-about">
-      <h2 class="section-about-us__text-about">{{'general.AboutUs1' | translate}}
+      <h2 class="section-about-us__text-about">
+        {{'general.AboutUs1' | translate}}
         <span>{{'general.AboutUs2' | translate}}</span>
-        <span>{{'general.AboutUs3' | translate}}</span>
+        <span> {{'general.AboutUs3' | translate}}</span>
         {{'general.AboutUs4' | translate}}
       </h2>
     </div>
   </section>
   <section #benefits class="section-benefits">
     <div class="section-benefits__wrapper-title">
-      <p>{{'general.Benefits' | translate}}</p>
+      <p>{{'general.BenefitsWolox' | translate}}</p>
     </div>
     <div class="section-benefits__row">
       <div *ngFor="let benefit of benefitsWolox" class="section-benefits__box">
