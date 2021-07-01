@@ -7,32 +7,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  benefits = [
+  benefitsWolox = [
     {
-      icon: '../../../Ic_Hour.svg',
+      icon: '../../../assets/Ic_Hour.svg',
       text: 'general.FlexibleHours'
     },
     {
-      icon: '../../../Ic_HomeOffice.svg',
+      icon: '../../../assets/Ic_HomeOffice.svg',
       text: 'general.HomeOffice'
     },
     {
-      icon: '../../../Ic_Workshops.svg',
+      icon: '../../../assets/Ic_Workshops.svg',
       text: 'general.Workshops'
     },
     {
-      icon: '../../../Ic_DrinkSnacks.svg',
+      icon: '../../../assets/Ic_DrinkSnacks.svg',
       text: 'general.DrinkSnacks'
     },
     {
-      icon: '../../../Ic_laptop.svg',
+      icon: '../../../assets/Ic_laptop.svg',
       text: 'general.RemoteWork'
     },
     {
-      icon: '../../../Ic_Tecnologys.svg',
+      icon: '../../../assets/Ic_Tecnologys.svg',
       text: 'general.CuttingEdgeTechnologies'
     }
-  ]
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

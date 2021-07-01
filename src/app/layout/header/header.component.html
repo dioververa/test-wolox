@@ -12,15 +12,15 @@
     <div class="spacer"></div>
 
     <a class="item-option" [routerLink]="['']" fragment="top">
-      <span>{{'account.Homepage' | translate}}</span>
+      <span>{{'general.Homepage' | translate}}</span>
     </a>
 
     <a class="item-option" [routerLink]="['']" fragment="benefits">
-      <span>{{'account.Benefits ' | translate}}</span>
+      <span>{{'general.Benefits ' | translate}}</span>
     </a>
 
     <a class="item-option sign-in-button sign-in" *ngIf="isLoggedIn$ | async" (click)="signup()">
-      <span>{{'account.Signup' | translate}}</span>
+      <span>{{'general.Signup' | translate}}</span>
     </a>
 
     <button *ngIf="isLoggedIn$ | async" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu" style="margin-left: auto;">
@@ -28,21 +28,21 @@
     </button>
     <mat-menu #toolbarUserMenu="matMenu">
       <button mat-menu-item (click)="onChangeLanguaje('en')">
-        <span>{{'account.English' | translate}}</span>
+        <span>{{'general.English' | translate}}</span>
       </button>
       <button mat-menu-item (click)="onChangeLanguaje('es')">
-        <span>{{'account.Spanish' | translate}}</span>
+        <span>{{'general.Spanish' | translate}}</span>
       </button>
     </mat-menu>
 
   </div>
 
   <div class="options-menu-responsive" [ngStyle]="{'display': openedMenuResposive == true ? 'flex':'none'}">
-    <a class="item-m-r" [routerLink]="['']" fragment="top">{{'account.Homepage' | translate}}</a>
-    <a class="item-m-r" [routerLink]="['']" fragment="benefits">{{'account.Benefits' | translate}}</a>
-    <a class="item-m-r" *ngIf="!(isLoggedIn$ | async)" (click)="signup()">{{'account.Signup' | translate}}</a>
+    <a class="item-m-r" [routerLink]="['']" fragment="top">{{'general.Homepage' | translate}}</a>
+    <a class="item-m-r" [routerLink]="['']" fragment="benefits">{{'general.Benefits' | translate}}</a>
+    <a class="item-m-r" *ngIf="!(isLoggedIn$ | async)" (click)="signup()">{{'general.Signup' | translate}}</a>
     <div *ngIf="isLoggedIn$ | async">
-      <a class="item-m-r" (click)="onLoggedout()">{{'account.LogOut' | translate}}</a>
+      <a class="item-m-r" (click)="onLoggedout()">{{'general.LogOut' | translate}}</a>
     </div>
   </div>
 </div>

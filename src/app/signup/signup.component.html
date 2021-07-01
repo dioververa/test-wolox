@@ -25,13 +25,13 @@
         <mat-form-field appearance="fill">
           <mat-label>{{'general.SelectType' | translate}}</mat-label>
           <mat-select formControlName="country">
-            <mat-option value="option.name" *ngFor="let option of countrys">{{option.name}}</mat-option>
+            <mat-option value="option.name" *ngFor="let option of []">{{option.name}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>{{'general.SelectType' | translate}}</mat-label>
           <mat-select formControlName="province">
-            <mat-option value="option" *ngFor="let option of getProvinces()">{{option}}</mat-option>
+            <mat-option value="option" *ngFor="let option of []">{{option}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="ark-form-field ark-input-full-width ">

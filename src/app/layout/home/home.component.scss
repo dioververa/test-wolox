@@ -1,4 +1,10 @@
 @import "~src/styles";
+.flex-center-hv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 //Fonts
 $monserrat: "Montserrat", sans-serif;
 $font-monserrat: $monserrat;
@@ -10,25 +16,42 @@ $color-text-black-1: #4a4a4a;
 
 .container {
   scroll-padding-top: 70px;
+  overflow: auto;
+  margin-top: 80px;
 
   .section-top {
     background-image: url("../../../assets/Backgrounds/Bg_Header.png");
+    display: flex;
 
-    .section-top__title {
-      font-family: $font-monserrat;
-      span {
-        color: $color-primary;
+    .section-top__row-title {
+      @extend .flex-center-hv;
+
+      .section-top__title {
+        font-family: $font-monserrat;
+        width: 70%;
+
+        span {
+          color: $color-primary;
+        }
       }
     }
   
     .section-top__image {
       background-image: url("../../../assets/Img-Hero/Ic_ilustra_Hero.png");
+      flex-grow: 1;
+      min-height: 446px;
     }
   }
 
   .section-about-us {
+    height: 300px;
+    display: flex;
+    
     .section-about-us__woloxers {
       width: 60%;
+      height: 100%;
+      @extend .flex-center-hv;
+      flex-flow: column;
       background-image: url("../../../assets/img_woloxer.png");
 
       .section-about-us__text-woloxers {
@@ -39,27 +62,54 @@ $color-text-black-1: #4a4a4a;
           color: $color-secondary;
         }
       }
-    }
 
-    .section-about-us__text-about {
-      width: auto;
-      color: $color-text-black-1;
-      span {
-        &:nth-last-child(0) {
-          color: $color-secondary;
-        }
-        &:nth-last-child(1) {
-          color: $color-primary;
+      .section-about-us__twitter {
+        @extend .flex-center-hv;
+        color: white;
+      }
+
+      .section-about-us__btn-follows {
+        color: white;
+        border-radius: 20px;
+        padding: 8px 20px;
+        border: $color-secondary solid 1px;
+        cursor: pointer;
+        
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
         }
       }
     }
+
+    .section-about-us__row-text-about {
+      @extend .flex-center-hv;
+      flex-grow: 1;
+
+      .section-about-us__text-about {
+        width: 70%;
+        color: $color-text-black-1;
+        span {
+          &:nth-last-child(0) {
+            color: $color-secondary;
+          }
+          &:nth-last-child(1) {
+            color: $color-primary;
+          }
+        }
+      }
+    }
+
   }
 
   .section-benefits {
+    margin-top: 20px;
+
     .section-benefits__wrapper-title {
       padding: 20px;
+      @extend .flex-center-hv;
+
       p {
-        margin: auto;
         color: $color-text-black-1;
       }
     }
@@ -71,8 +121,12 @@ $color-text-black-1: #4a4a4a;
       align-items: center;
 
       .section-benefits__box {
+        width: 13%;
+        height: 150px;
 
         .section-benefits__box-icon {
+          height: 120px;
+
           &:nth-child(odd) {
             color: $color-secondary;
           }

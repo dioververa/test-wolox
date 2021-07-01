@@ -14,6 +14,12 @@
     "PasswordDontMatch": "Passwords don't match"
   },
   "general": {
+    "Homepage": "Homepage",
+    "Benefits": "Benefits",
+    "Signup": "Signup",
+    "LogOut": "LogOut",
+    "English": "English",
+    "Spanish": "Spanish",
     "HomeTitle1": "welcome to your",
     "HomeTitle2": "technical interview",
     "HomeTitle3": "at",
@@ -22,7 +28,7 @@
     "AboutUs2": "turn",
     "AboutUs3": "ideas",
     "AboutUs4": "into products",
-    "Benefits": "Among the benefits we offer are",
+    "BenefitsWolox": "Among the benefits we offer are",
     "FlexibleHours": "Flexible Hours",
     "HomeOffice": "Home Office",
     "Workshops": "Workshops",

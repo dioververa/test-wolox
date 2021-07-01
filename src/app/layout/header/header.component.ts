@@ -6,6 +6,7 @@ import {
   faBars,
   faPlus, faPowerOff, faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
+import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import { map, share } from "rxjs/operators";
 import { UserService } from "../../shared/services/user.service";
@@ -32,8 +33,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public router: Router,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private translate: TranslateService
+  ) {
+    this.translate.addLangs(['en','es']);
+    this.translate.setDefaultLang('en');
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang.match(/en|es/) ? browserLang : 'en');
+  }
 
   ngOnInit() {
 
@@ -53,7 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onChangeLanguaje(languaje){
-
+    this.translate.use(languaje);
   }
 
   ngOnDestroy() {
