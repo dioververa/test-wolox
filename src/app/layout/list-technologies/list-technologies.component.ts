@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  faArrowAltCircleDown,
+  faHeart, faHeartbeat, faTimes
+} from "@fortawesome/free-solid-svg-icons";
 import { TranslateService } from '@ngx-translate/core';
 import { merge, Observable, of, OperatorFunction, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, mapTo, scan, startWith, switchMap } from 'rxjs/operators';
 import { ListTechsApiService } from '../services/list-techs.api.service';
-import { faTimes, faArrowAltCircleDown,
-  faHeart, faHeartbeat
-} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-list-technologies',
@@ -21,16 +22,11 @@ export class ListTechnologiesComponent implements OnInit {
   faHeart = faHeart;
   faHeartbeat = faHeartbeat;
 
-  noVisible = false;
   filterName = '';
   filterKey = '';
-  pendingMessagesList = [];
-  viewedMessagesList = [];
   techs = [];
   readonly criteria = new FormControl('');
   readonly filterValue = (item: string, value: string): boolean => item.includes(value);
-  readonly emptyArray = [];
-  isSearchingActived = false;
   $updateList = new Subject();
   favorites = [];
 
@@ -51,8 +47,8 @@ export class ListTechnologiesComponent implements OnInit {
     }
   ];
 
-  readonly searchingMessages$ = this.criteria.valueChanges.pipe(
-    this.messageSearch(this.getMessages.bind(this)),
+  readonly searchingTechs$ = this.criteria.valueChanges.pipe(
+    this.techsSearch(this.getTechs.bind(this)),
     catchError((err, caught) => {
       return of([]);
     })
@@ -67,10 +63,10 @@ export class ListTechnologiesComponent implements OnInit {
   async ngOnInit() {
     this.favorites = JSON.parse(localStorage.getItem("favorites") || '[]');
     merge(
-      this.searchingMessages$.pipe(map( value => ({isValuechanged: true, items: value}))),
+      this.searchingTechs$.pipe(map( value => ({isValuechanged: true, items: value}))),
       this.criteria.valueChanges.pipe(mapTo({isValuechanged: false})),
       this.criteria.valueChanges.pipe(
-        switchMap(value => this.getMessages({type: value})),
+        switchMap(value => this.getTechs({type: value})),
         mapTo({isValuechanged: false})
       ),
       this.$updateList.pipe(mapTo({isValuechanged: false})),
@@ -87,21 +83,18 @@ export class ListTechnologiesComponent implements OnInit {
   }
 
   OnOrderBy(key: string) {
-    this.noVisible = true;
     this.filterKey = key;
     this.filterName = this.ordersBy.find(item => item.key === key)?.filterName || '';
     this.$updateList.next();
   }
 
   OnSelectType(key: string) {
-    this.noVisible = true;
     this.filterKey = key;
     this.filterName = this.ordersBy.find(item => item.key === key)?.filterName || '';
     this.$updateList.next();
   }
 
   eraseFilter() {
-    this.noVisible = false;
     this.filterKey = '';
     this.filterName = '';
     this.$updateList.next();
@@ -116,7 +109,7 @@ export class ListTechnologiesComponent implements OnInit {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }
 
-  messageSearch<T>(
+  techsSearch<T>(
     getSearchFunction: (search: any) => Observable<T[]>,
     searchDebouceTimeMs: number = 200,
   ): OperatorFunction<string, T[] | null> {
@@ -133,7 +126,7 @@ export class ListTechnologiesComponent implements OnInit {
     );
   }
 
-  getMessages(query): Observable<any[]>{
+  getTechs(query): Observable<any[]>{
     return this.listTechsApiService.getAllTechs<any[]>(query)
     .pipe(catchError((err, caught) => {
         return of([]);

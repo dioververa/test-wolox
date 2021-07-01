@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
+import {
+  faEyeSlash, faEye
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +14,8 @@ import { UserService } from '../shared/services/user.service';
 })
 export class SignupComponent implements OnInit {
 
+  faEyeSlash = faEyeSlash;
+  faEye = faEye;
   reEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   rePhone = /^\d+$/;
   signupForm: FormGroup;
@@ -18,7 +23,7 @@ export class SignupComponent implements OnInit {
   error: string;
   hideNewPassword = true;
   matcher = new ConfirmPasswordErrorStateMatcher();
-  
+
   countrys = [ 
     {
       name: 'Argentina',
