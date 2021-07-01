@@ -20,7 +20,7 @@
     </div>
     <div class="list-toolbar-bottom">
       <div class="list-favorites" *ngIf="favorites.length > 0">
-        <p>{{'general.Favorites' | translate}}: <span>favorites.length</span></p>
+        <p>{{'general.Favorites' | translate}}: <span>{{favorites.length}}</span></p>
       </div>
       <div >
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="wrapper-box-favorite">
-          <a class="favorite-icon" (click)="saveFavorite(tech.name)">
+          <a class="favorite-icon" (click)="saveFavorite(tech.tech)">
             <fa-icon [icon]="faHeart" *ngIf="tech.isFavorite"></fa-icon>
             <fa-icon [icon]="faHeartbeat" *ngIf="!tech.isFavorite"></fa-icon>
           </a>

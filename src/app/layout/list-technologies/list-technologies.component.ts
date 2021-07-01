@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -13,7 +13,8 @@ import { ListTechsApiService } from '../services/list-techs.api.service';
 @Component({
   selector: 'app-list-technologies',
   templateUrl: './list-technologies.component.html',
-  styleUrls: ['./list-technologies.component.scss']
+  styleUrls: ['./list-technologies.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListTechnologiesComponent implements OnInit {
 
@@ -36,18 +37,19 @@ export class ListTechnologiesComponent implements OnInit {
     {
       key: 'nameAscending',
       filterName: this.translateService.instant('general.nameAscending'),
-      cb: (messageA, messageB) => (messageA.channel.Name > messageB.channel.Name) ?
-      1 : ((messageB.channel.Name > messageA.channel.Name) ? -1 : 0)
+      cb: (tech1, tech2) => (tech1.tech > tech2.tech) ?
+      1 : ((tech2.tech > tech1.tech) ? -1 : 0)
     },
     {
       key: 'nameDescending',
       filterName: this.translateService.instant('general.nameDescending'),
-      cb: (messageA, messageB) => (messageA.channel.Name < messageB.channel.Name) ?
-      1 : ((messageB.channel.Name < messageA.channel.Name) ? -1 : 0)
+      cb: (tech1, tech2) => (tech1.tech < tech2.tech) ?
+      1 : ((tech2.tech < tech1.tech) ? -1 : 0)
     }
   ];
 
   readonly searchingTechs$ = this.criteria.valueChanges.pipe(
+    startWith(''),
     this.techsSearch(this.getTechs.bind(this)),
     catchError((err, caught) => {
       return of([]);
@@ -57,7 +59,8 @@ export class ListTechnologiesComponent implements OnInit {
   constructor(
     public router: Router,
     private translateService: TranslateService,
-    private listTechsApiService: ListTechsApiService
+    private listTechsApiService: ListTechsApiService,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   async ngOnInit() {
@@ -71,11 +74,14 @@ export class ListTechnologiesComponent implements OnInit {
       ),
       this.$updateList.pipe(mapTo({isValuechanged: false})),
     ).subscribe( (value: any) => {
+      console.log('value: ', value);
       const items = value.isValuechanged ? value.items : this.techs;
       this.techs = (items || [])
-      .map(value => ({...value, isFavorite: this.favorites.some(item => item === value.name)}))
-      .filter(item => item.name.includes(this.criteria.value)) 
+      .map(value => ({...value, ...{isFavorite: this.favorites.some(item => item === value.tech)}}))
+      .filter(item => item.tech.includes(this.criteria.value)) 
       .sort(this.ordersBy.find(item => item.key === this.filterKey)?.cb || this.ordersBy[0]?.cb)
+      console.log('this.techs: ', this.techs);
+      this.cdRef.markForCheck();
     }, err => {
       console.error('merge err: ', err);
     });
@@ -101,12 +107,14 @@ export class ListTechnologiesComponent implements OnInit {
   }
 
   saveFavorite(name) {
-    this.techs = this.techs.filter(value => value.name === name)
-    .map(value => ({...value, isFavorite: this.favorites.some(item => item === value.name)}));
-    const favorites = this.techs.reduce((curr, acum) => {
-      curr.isFavorite ? [...acum, curr.name] : acum
-    }, []);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    console.log('saveFavorite name: ', name);
+    console.log('saveFavorite this.techs: ', this.techs);
+    console.log('saveFavorite this.favorites: ', this.favorites);
+    this.favorites = this.favorites.some(value => value === name) ? 
+    this.favorites.filter(value => value !== name) :
+    [...this.favorites, name];
+    this.$updateList.next();
+    localStorage.setItem("favorites", JSON.stringify(this.favorites));
   }
 
   techsSearch<T>(
@@ -121,7 +129,7 @@ export class ListTechnologiesComponent implements OnInit {
           : current;
       }, ''),
       distinctUntilChanged(),
-      switchMap(value => getSearchFunction({name: value}).pipe(startWith(null))),
+      switchMap(value => getSearchFunction({tech: value}).pipe(startWith(null))),
       startWith([])
     );
   }
@@ -136,6 +144,7 @@ export class ListTechnologiesComponent implements OnInit {
 
   onCriteriaClear() {
     this.criteria.setValue('');
+    this.cdRef.markForCheck();
   }
 
 }
