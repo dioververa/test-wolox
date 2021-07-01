@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate, CanLoad {
       take(1),
       map((isLoggedIn: boolean) => {
         if (!isLoggedIn) {
-          let redirect = !!customRedirect ? customRedirect : "/login";
+          let redirect = !!customRedirect ? customRedirect : "/signup";
           this.router.navigate([redirect]);
           return false;
         }
@@ -39,7 +39,6 @@ export class AuthGuard implements CanActivate, CanLoad {
     return this.userService.isLoggedIn.pipe(
       take(1),
       map((isLoggedIn: boolean) => {
-        console.log("AuthGuard canLoad isLoggedIn:", isLoggedIn);
         if (!isLoggedIn) {
           return false;
         }

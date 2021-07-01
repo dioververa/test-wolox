@@ -9,12 +9,27 @@ import { TranslateService } from '@ngx-translate/core';
 import { merge, Observable, of, OperatorFunction, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, map, mapTo, scan, startWith, switchMap } from 'rxjs/operators';
 import { ListTechsApiService } from '../services/list-techs.api.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-list-technologies',
   templateUrl: './list-technologies.component.html',
   styleUrls: ['./list-technologies.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('routerTransition', [
+      state('void', style({})),
+      state('*', style({})),
+      transition(':enter', [
+        style({ transform: 'translateY(100%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateY(0%)' }))
+      ]),
+      transition(':leave', [
+        style({ transform: 'translateY(0%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateY(-100%)' }))
+      ])
+    ])
+  ]
 })
 export class ListTechnologiesComponent implements OnInit {
 
@@ -68,17 +83,19 @@ export class ListTechnologiesComponent implements OnInit {
     merge(
       this.searchingTechs$.pipe(map( value => ({isValuechanged: true, items: value}))),
       this.criteria.valueChanges.pipe(mapTo({isValuechanged: false})),
-      this.criteria.valueChanges.pipe(
+      this.techTypeSelected.valueChanges.pipe(
         switchMap(value => this.getTechs({type: value})),
-        mapTo({isValuechanged: false})
+        map( value => ({isValuechanged: true, items: value}))
       ),
       this.$updateList.pipe(mapTo({isValuechanged: false})),
     ).subscribe( (value: any) => {
       console.log('value: ', value);
+      console.log('this.techTypeSelected.value: ', this.techTypeSelected.value);
       const items = value.isValuechanged ? value.items : this.techs;
       this.techs = (items || [])
       .map(value => ({...value, ...{isFavorite: this.favorites.some(item => item === value.tech)}}))
-      .filter(item => item.tech.includes(this.criteria.value)) 
+      .filter(item => item.tech.includes(this.criteria.value) 
+        && (!this.techTypeSelected.value || item.type.includes(this.techTypeSelected.value))) 
       .sort(this.ordersBy.find(item => item.key === this.filterKey)?.cb || this.ordersBy[0]?.cb)
       console.log('this.techs: ', this.techs);
       this.cdRef.markForCheck();

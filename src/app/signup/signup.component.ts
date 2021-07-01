@@ -1,14 +1,12 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { UserService } from '../shared/services/user.service';
-import {
-  faEyeSlash, faEye
-} from "@fortawesome/free-solid-svg-icons";
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { map, mapTo, tap } from 'rxjs/operators';
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -77,13 +75,13 @@ export class SignupComponent implements OnInit {
 
   getSignupForm() {
     this.signupForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.maxLength(50)]],
-      lastName: ['', [Validators.required, Validators.maxLength(50)]],
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
       country: ['', [Validators.required]],
       province: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(this.reEmail), Validators.maxLength(50)]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(12), Validators.pattern(this.rePhone)]],
-      newPassword: ['', [Validators.required, Validators.minLength(5)]],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(this.rePhone)]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
     }, { validator: this.checkPasswords });
 
@@ -103,8 +101,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signupForm.invalid)
-    console.log(this.signupForm)
+
     if (this.signupForm.invalid) return;
 
     const user = {

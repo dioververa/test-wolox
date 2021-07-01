@@ -54,7 +54,7 @@ export class UserService {
     localStorage.removeItem("auth_token");
     localStorage.removeItem("favorites");
     this.loggedIn.next(false);
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/signup"]);
   }
 
   validateTokenExist() {
@@ -63,10 +63,6 @@ export class UserService {
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
-  }
-
-  goLoggin() {
-    this.router.navigate(["/login"]);
   }
 
   goSignup() {
@@ -85,6 +81,7 @@ export class UserService {
           resp => {
             if (resp && resp.token) {
               this.setUserLocalStorage(resp.token, user);
+              this.router.navigate(["/list-techs"]);
             }
             return resp;
           },
