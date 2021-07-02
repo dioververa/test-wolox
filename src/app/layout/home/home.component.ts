@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   ]
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild('top') public topElemRef:ElementRef;
+  @ViewChild('benefits') public benefitsElemRef:ElementRef;
 
   benefitsWolox = [
     {
@@ -49,9 +53,16 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment === 'top') {
+        this.topElemRef && this.topElemRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+      } else if(fragment === 'benefits') {
+        this.benefitsElemRef && this.benefitsElemRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'start' });
+      }
+    });
   }
 
 }
