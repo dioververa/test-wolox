@@ -89,15 +89,12 @@ export class ListTechnologiesComponent implements OnInit {
       ),
       this.$updateList.pipe(mapTo({isValuechanged: false})),
     ).subscribe( (value: any) => {
-      console.log('value: ', value);
-      console.log('this.techTypeSelected.value: ', this.techTypeSelected.value);
       const items = value.isValuechanged ? value.items : this.techs;
       this.techs = (items || [])
       .map(value => ({...value, ...{isFavorite: this.favorites.some(item => item === value.tech)}}))
       .filter(item => item.tech.includes(this.criteria.value) 
         && (!this.techTypeSelected.value || item.type.includes(this.techTypeSelected.value))) 
       .sort(this.ordersBy.find(item => item.key === this.filterKey)?.cb || this.ordersBy[0]?.cb)
-      console.log('this.techs: ', this.techs);
       this.cdRef.markForCheck();
     }, err => {
       console.error('merge err: ', err);
@@ -124,9 +121,6 @@ export class ListTechnologiesComponent implements OnInit {
   }
 
   saveFavorite(name) {
-    console.log('saveFavorite name: ', name);
-    console.log('saveFavorite this.techs: ', this.techs);
-    console.log('saveFavorite this.favorites: ', this.favorites);
     this.favorites = this.favorites.some(value => value === name) ? 
     this.favorites.filter(value => value !== name) :
     [...this.favorites, name];

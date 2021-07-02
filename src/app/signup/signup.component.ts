@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from '../shared/models/user';
 import { UserService } from '../shared/services/user.service';
 
 @Component({
@@ -63,6 +64,16 @@ export class SignupComponent implements OnInit {
   ];
   provinces$: Observable<Array<string>>;
 
+  listMatchUserdata = {
+    'name': 'firstName',
+    'last_name': 'lastName',
+    'country': 'country',
+    'province': 'province',
+    'mail': 'email',
+    'phone': 'phoneNumber',
+    'password': 'newPassword'
+  };
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -104,16 +115,10 @@ export class SignupComponent implements OnInit {
 
     if (this.signupForm.invalid) return;
 
-    const user = {
-      "name": this.signupForm.get('firstName').value,
-      "last_name": this.signupForm.get('lastName').value,
-      "country": this.signupForm.get('country').value,
-      "province": this.signupForm.get('province').value,
-      "mail": this.signupForm.get('email').value,
-      "phone": this.signupForm.get('phoneNumber').value,
-      "password": this.signupForm.get('newPassword').value
-    }
-    this.userService.create(user)
+    const userData = Object.entries(this.listMatchUserdata)
+    .reduce((acum, [key, value]) => ({...acum, ...{[key]: this.signupForm.get(value).value}}), {} as User)
+
+    this.userService.create(userData)
     .subscribe(() => {
         this.router.navigate(['/']);
       }, error => {

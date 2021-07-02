@@ -21,9 +21,24 @@ $color-text-black-1: #4a4a4a;
   .section-top {
     background-image: url("../../../assets/Backgrounds/Bg_Header.png");
     display: flex;
+    flex-wrap: wrap;
+    margin-top: 70px;
+
+    @media only screen and (max-width: 768px) and (min-width: 300px) {
+      background-image: url("../../../assets/Backgrounds/Bg_Header@2x.png");
+    }
+
+    @media only screen and (min-width: 768px) {
+      background-image: url("../../../assets/Backgrounds/Bg_Header@3x.png");
+    }
 
     .section-top__row-title {
       @extend .flex-center-hv;
+      width: 100%;
+
+      @media only screen and (min-width: 600px) {
+        width: 50%;
+      }
 
       .section-top__title {
         font-family: $font-monserrat;
@@ -37,22 +52,43 @@ $color-text-black-1: #4a4a4a;
   
     .section-top__image {
       background-image: url("../../../assets/Img-Hero/Ic_ilustra_Hero.png");
+      background-size: contain;
       flex-grow: 1;
       min-height: 446px;
+      min-width: 250px;
+
+      @media only screen and (max-width: 768px) and (min-width: 300px) {
+        background-image: url("../../../assets/Img-Hero/Ic_ilustra_Hero@2x.png");
+      }
+
+      @media only screen and (min-width: 768px) {
+        background-image: url("../../../assets/Img-Hero/Ic_ilustra_Hero@3x.png");
+      }
     }
   }
 
   .section-about-us {
-    height: 300px;
+    min-height: 300px;
     display: flex;
     background: #f0f0f0;
+    flex-wrap: wrap;
     
     .section-about-us__woloxers {
       width: 55%;
       height: 100%;
+      min-height: 300px;
       @extend .flex-center-hv;
       flex-flow: column;
       background-image: url("../../../assets/img_woloxer.png");
+
+      @media only screen and (max-width: 768px) and (min-width: 300px) {
+        background-image: url("../../../assets/img_woloxer@2x.png");
+        width: 100%;
+      }
+
+      @media only screen and (min-width: 768px) {
+        background-image: url("../../../assets/img_woloxer@3x.png");
+      }
 
       .section-about-us__text-woloxers {
         font-family: $font-monserrat;
@@ -85,6 +121,7 @@ $color-text-black-1: #4a4a4a;
     .section-about-us__row-text-about {
       @extend .flex-center-hv;
       flex-grow: 1;
+      min-height: 250px;
 
       .section-about-us__text-about {
         width: 50%;
@@ -123,8 +160,9 @@ $color-text-black-1: #4a4a4a;
       align-items: center;
 
       .section-benefits__box {
-        width: 13%;
+        min-width: 150px;
         height: 150px;
+        margin: 15px auto;
 
         .section-benefits__box-icon {
           height: 120px;
