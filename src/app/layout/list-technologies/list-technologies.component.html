@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="list-techs">
-      <div class="box-tech" *ngFor="let tech of techs">
+      <div class="box-tech" *ngFor="let tech of (techs$ | async)">
         <div class="wrapper-box-tech">
           <div class="row-text-box-tech">
             <h3>

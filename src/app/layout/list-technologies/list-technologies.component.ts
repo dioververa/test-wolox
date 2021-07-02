@@ -41,8 +41,9 @@ export class ListTechnologiesComponent implements OnInit {
   filterName = '';
   filterKey = '';
   techs = [];
+  techs$ = new Subject<any[]>();
   readonly criteria = new FormControl('');
-  readonly filterValue = (item: string, value: string): boolean => item.includes(value);
+  readonly filterValue = (item: string, value: string): boolean => item.startsWith(value);
   $updateList = new Subject();
   favorites = [];
 
@@ -89,13 +90,13 @@ export class ListTechnologiesComponent implements OnInit {
       ),
       this.$updateList.pipe(mapTo({isValuechanged: false})),
     ).subscribe( (value: any) => {
-      const items = value.isValuechanged ? value.items : this.techs;
-      this.techs = (items || [])
+      this.techs = value.isValuechanged ? value.items : this.techs;
+      const techs = (this.techs || [])
       .map(value => ({...value, ...{isFavorite: this.favorites.some(item => item === value.tech)}}))
-      .filter(item => item.tech.includes(this.criteria.value) 
-        && (!this.techTypeSelected.value || item.type.includes(this.techTypeSelected.value))) 
+      .filter(item => item.tech.startsWith(this.criteria.value) 
+        && (!this.techTypeSelected.value || item.type.startsWith(this.techTypeSelected.value))) 
       .sort(this.ordersBy.find(item => item.key === this.filterKey)?.cb || this.ordersBy[0]?.cb)
-      this.cdRef.markForCheck();
+      this.techs$.next(techs);
     }, err => {
       console.error('merge err: ', err);
     });
@@ -135,7 +136,7 @@ export class ListTechnologiesComponent implements OnInit {
     return source => source.pipe(
       debounceTime(searchDebouceTimeMs),
       scan((previousSearched, current) => {
-        return previousSearched !== '' && current.includes(previousSearched)
+        return previousSearched !== '' && current.startsWith(previousSearched)
           ? previousSearched
           : current;
       }, ''),

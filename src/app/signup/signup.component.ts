@@ -120,7 +120,7 @@ export class SignupComponent implements OnInit {
 
     this.userService.create(userData)
     .subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(["/list-techs"]);
       }, error => {
         this.error = error;
         this.loading = false;

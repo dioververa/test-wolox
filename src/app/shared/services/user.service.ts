@@ -81,7 +81,6 @@ export class UserService {
           resp => {
             if (resp && resp.token) {
               this.setUserLocalStorage(resp.token, user);
-              this.router.navigate(["/list-techs"]);
             }
             return resp;
           },
